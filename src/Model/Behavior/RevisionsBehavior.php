@@ -31,19 +31,24 @@ class RevisionsBehavior extends Behavior{
 		# get the current configuration
 		$config = $this->config();
 
-		# t
+		# pessimistic - expect not to have to update anything
 		$trigger = false;
 
 		# if watch is set, use it 
 		switch (true):
+			# if `watch` is set AND one of the fields we're watching has been changed, trigger a save
 			case (!empty($config['watch'])):
 				$trigger = !empty($entity->extractOriginalChanged($config['watch']));
 				break;
-			case (!empty($config['ignore'])):			
 
+			# if `ignore` is set AND at least one other non-ignored field was changed, trigger a save
+			case (!empty($config['ignore'])):			
+				$trigger = !empty(array_diff($entity->extractOriginalChanged($this->_table->schema()->columns()), $entity->extractOriginalChanged($config['ignore'])));
 				break;
+
+			# if SOMETHING changed, and we're not explicity watching or ignoring anything, trigger anyway
 			default:
-				$trigger = true;
+				$trigger = $entity->dirty();
 				break;
 		endswitch;
 
