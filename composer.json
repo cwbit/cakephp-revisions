@@ -17,11 +17,14 @@
             "role":         "Original Author"
         }
     ],
-    "require" : {
-        },
-    "require-dev" : {
+    "autoload": {
+        "psr-4": {
+            "Revisions\\": "src"
+        }
     },
-    "extra": {
-    	"installer-name" : "Revisions"
+    "require" : {
+        "cakephp/cakephp": "~3.0"
+    },
+    "require-dev" : {
     }
 }
