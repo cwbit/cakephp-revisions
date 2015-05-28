@@ -1,0 +1,27 @@
+{
+	"name": "cwbit/cakephp-revisions",
+    "description" : "A revision-tracking plugin for CakePHP 3. Developed at CakeFest2015.",
+    "license" : "WTFPL",
+    "type" : "cakephp-plugin",
+    "authors": [
+        {
+            "name":         "btx",
+            "role":         "Author"
+        },
+        {
+            "name":         "tiinusen",
+            "role":         "Author"
+        },
+        {
+            "name":         "isaac",
+            "role":         "Original Author"
+        }
+    ],
+    "require" : {
+        },
+    "require-dev" : {
+    },
+    "extra": {
+    	"installer-name" : "Revisions"
+    }
+}
