@@ -5,6 +5,7 @@ namespace Revisions\Model\Behavior;
 use Cake\Event\Event;
 use Cake\ORM\Entity;
 use Cake\ORM\Behavior;
+use Cake\ORM\TableRegistry;
 
 class RevisionsBehavior extends Behavior{
 	
@@ -16,15 +17,25 @@ class RevisionsBehavior extends Behavior{
 		],
 	];
 
-	// public function beforeSave(Event $event, Entity $entity){
-	// 	$this->_before = $entity->jsonSerialize();
-	// }
-
 	public function afterSave( Event $event, Entity $entity){
-		$before = $this->_table->patchEntity($entity, $entity->extractOriginal($entity->_accessible));
+		# rebuild the original entity
+		$before = $this->_table->newEntity($entity->extractOriginal($this->_table->schema()->columns()));
 
-		debug($before);
-		debug($entity);
+		# load the Revisions Model
+		$this->Revisions = TableRegistry::get('Revisions.Revisions');
+
+		# build the Revision record
+		$r = $this->Revisions->newEntity([
+			'model' => $this->_table->table(),
+			'modelPrimaryKey' => $entity->get($this->_table->primaryKey()),
+			'before_edit' => json_encode($before),
+			'after_edit' => json_encode($entity),
+			]);
+
+		# and save it
+		$this->Revisions->save($r);
+
 	}	
+
 
 }
