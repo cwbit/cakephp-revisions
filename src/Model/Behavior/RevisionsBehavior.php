@@ -15,20 +15,43 @@ class RevisionsBehavior extends Behavior{
 	 * @var array
 	 */
 	public $_config = [
-		'watch' => [ .. ],	# (whitelist) only watch these fields
-		'ignore' => [ .. ], # (blacklist) modifications to these fields will be ignored
+		'watch' => [ ],	# (whitelist) only watch these fields
+		'ignore' => [ ], # (blacklist) modifications to these fields will be ignored
 	];
 
 	/**
 	 * Save the before and after state of the modified entity to the Revisions table.
 	 * 
-	 * @todo  clones the object because patchEntity modified entity itself (bug?)
 	 * @param  Event  $event  [description]
 	 * @param  Entity $entity [description]
 	 * @return void
 	 */
 	public function afterSave( Event $event, Entity $entity){
-		
+
+		# get the current configuration
+		$config = $this->config();
+
+		# t
+		$trigger = false;
+
+		# if watch is set, use it 
+		switch (true):
+			case (!empty($config['watch'])):
+				$trigger = !empty($entity->extractOriginalChanged($config['watch']));
+				break;
+			case (!empty($config['ignore'])):			
+
+				break;
+			default:
+				$trigger = true;
+				break;
+		endswitch;
+
+		# if we don't need to trigger a save, stop
+		if(!$trigger):
+			return;
+		endif;
+
 		# rebuild the original entity
 		$before = $this->_table->patchEntity($before = clone $entity, $before->extractOriginal($this->_table->schema()->columns()));
 
