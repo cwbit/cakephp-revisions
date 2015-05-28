@@ -4,7 +4,6 @@
         <li><?= $this->Html->link(__('Edit Revision'), ['action' => 'edit', $revision->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Revision'), ['action' => 'delete', $revision->id], ['confirm' => __('Are you sure you want to delete # {0}?', $revision->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Revisions'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Revision'), ['action' => 'add']) ?> </li>
     </ul>
 </div>
 <div class="revisions view large-10 medium-9 columns">
