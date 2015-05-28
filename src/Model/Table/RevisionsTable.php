@@ -38,12 +38,6 @@ class RevisionsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
-        $this->belongsToMany('Phinxlog', [
-            'foreignKey' => 'revision_id',
-            'targetForeignKey' => 'phinxlog_id',
-            'joinTable' => 'revisions_phinxlog',
-            'className' => 'Revisions.Phinxlog'
-        ]);
     }
 
     /**

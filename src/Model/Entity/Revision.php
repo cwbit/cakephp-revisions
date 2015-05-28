@@ -19,6 +19,5 @@ class Revision extends Entity
         'modelPrimaryKey' => true,
         'before_edit' => true,
         'after_edit' => true,
-        'phinxlog' => true,
     ];
 }

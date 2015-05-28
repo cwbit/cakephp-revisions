@@ -5,8 +5,6 @@
         <li><?= $this->Form->postLink(__('Delete Revision'), ['action' => 'delete', $revision->id], ['confirm' => __('Are you sure you want to delete # {0}?', $revision->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Revisions'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Revision'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Phinxlog'), ['controller' => 'Phinxlog', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Phinxlog'), ['controller' => 'Phinxlog', 'action' => 'add']) ?> </li>
     </ul>
 </div>
 <div class="revisions view large-10 medium-9 columns">
@@ -30,47 +28,14 @@
     <div class="row texts">
         <div class="columns large-9">
             <h6 class="subheader"><?= __('Before Edit') ?></h6>
-            <?= $this->Text->autoParagraph(h($revision->before_edit)); ?>
+            <?= pj($revision->before_edit); ?>
 
         </div>
     </div>
     <div class="row texts">
         <div class="columns large-9">
             <h6 class="subheader"><?= __('After Edit') ?></h6>
-            <?= $this->Text->autoParagraph(h($revision->after_edit)); ?>
-
+            <?= pj($revision->after_edit); ?>
         </div>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Phinxlog') ?></h4>
-    <?php if (!empty($revision->phinxlog)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Version') ?></th>
-            <th><?= __('Start Time') ?></th>
-            <th><?= __('End Time') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($revision->phinxlog as $phinxlog): ?>
-        <tr>
-            <td><?= h($phinxlog->version) ?></td>
-            <td><?= h($phinxlog->start_time) ?></td>
-            <td><?= h($phinxlog->end_time) ?></td>
-
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Phinxlog', 'action' => 'view', $phinxlog->]) ?>
-
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Phinxlog', 'action' => 'edit', $phinxlog->]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Phinxlog', 'action' => 'delete', $phinxlog->], ['confirm' => __('Are you sure you want to delete # {0}?', $phinxlog->)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
-    <?php endif; ?>
     </div>
 </div>

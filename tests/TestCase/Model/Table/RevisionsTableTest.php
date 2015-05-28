@@ -18,8 +18,6 @@ class RevisionsTableTest extends TestCase
      */
     public $fixtures = [
         'plugin.revisions.revisions',
-        'plugin.revisions.phinxlog',
-        'plugin.revisions.revisions_phinxlog'
     ];
 
     /**

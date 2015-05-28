@@ -15,10 +15,8 @@ class RevisionsBehavior extends Behavior{
 	 * @var array
 	 */
 	public $_config = [
-		'Model' => [
-			'watch' => [ .. ],	# (whitelist) only watch these fields
-			'ignore' => [ .. ], # (blacklist) modifications to these fields will be ignored
-		],
+		'watch' => [ .. ],	# (whitelist) only watch these fields
+		'ignore' => [ .. ], # (blacklist) modifications to these fields will be ignored
 	];
 
 	/**

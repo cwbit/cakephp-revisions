@@ -32,33 +32,32 @@ class RevisionsController extends AppController
     public function view($id = null)
     {
         $revision = $this->Revisions->get($id, [
-            'contain' => ['Phinxlog']
+
         ]);
         $this->set('revision', $revision);
         $this->set('_serialize', ['revision']);
     }
 
-    /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $revision = $this->Revisions->newEntity();
-        if ($this->request->is('post')) {
-            $revision = $this->Revisions->patchEntity($revision, $this->request->data);
-            if ($this->Revisions->save($revision)) {
-                $this->Flash->success(__('The revision has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The revision could not be saved. Please, try again.'));
-            }
-        }
-        $phinxlog = $this->Revisions->Phinxlog->find('list', ['limit' => 200]);
-        $this->set(compact('revision', 'phinxlog'));
-        $this->set('_serialize', ['revision']);
-    }
+    // /**
+    //  * Add method
+    //  *
+    //  * @return void Redirects on successful add, renders view otherwise.
+    //  */
+    // public function add()
+    // {
+    //     $revision = $this->Revisions->newEntity();
+    //     if ($this->request->is('post')) {
+    //         $revision = $this->Revisions->patchEntity($revision, $this->request->data);
+    //         if ($this->Revisions->save($revision)) {
+    //             $this->Flash->success(__('The revision has been saved.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         } else {
+    //             $this->Flash->error(__('The revision could not be saved. Please, try again.'));
+    //         }
+    //     }
+    //     $this->set(compact('revision'));
+    //     $this->set('_serialize', ['revision']);
+    // }
 
     /**
      * Edit method
@@ -70,7 +69,6 @@ class RevisionsController extends AppController
     public function edit($id = null)
     {
         $revision = $this->Revisions->get($id, [
-            'contain' => ['Phinxlog']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $revision = $this->Revisions->patchEntity($revision, $this->request->data);
@@ -81,8 +79,7 @@ class RevisionsController extends AppController
                 $this->Flash->error(__('The revision could not be saved. Please, try again.'));
             }
         }
-        $phinxlog = $this->Revisions->Phinxlog->find('list', ['limit' => 200]);
-        $this->set(compact('revision', 'phinxlog'));
+        $this->set(compact('revision'));
         $this->set('_serialize', ['revision']);
     }
 
