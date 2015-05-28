@@ -2,10 +2,12 @@
 =======================
 CakePHP Revisions plugin (CakeFest 2015)
 
+A Plugin for CakePHP 3.x that allows you to track Revisions to Tables (at the entity level) in your Application
 
-A Behavior plugin for CakePHP that extends the idea of counterCache and counterScope to more fields.
+## Requirements
+====
 
-Note: this is a git extension of the original AggregateCache behavior by Vincent Lizzi.
+* [CakePHP 3.x](http://cakephp.org)
 
 ## Installation
 ====
@@ -47,10 +49,56 @@ In your `plugins` directory type:
 
 In 3.0 you need to enable the plugin your `config/bootstrap.php` file:
 ```
-    Plugin::load('AggregateCache');
+    Plugin::load('Revisions');
 ```
 If you are already using `Plugin::loadAll();`, then this is not necessary.
 
 
 ## Usage
 
+Add the Behavior to any Table you want to track versions of
+
+#### Basic Implementation
+The Basic Implementation will fire any time any field on the entity is modified.
+
+```php
+	public function initialize(){
+		parent::initialize();
+		
+		$this->addBehavior('Revisions.Revisions');
+	}
+```
+
+#### WATCHed Implementation
+You can also explicitly tell the Plugin to only trigger version control if specific field(s) have been modified.
+
+```php
+	public function initialize(){
+		parent::initialize();
+		
+		$this->addBehavior('Revisions.Revisions', [
+			'watch' => [
+				'name', # trigger if,
+				'foo',  # and only if, 
+				'bar'	# any of these fields are changed 
+				],   
+			]);
+	}
+```
+
+#### IGNOREd Implementation
+You can also explicitly tell the Plugin to ignore modifications to certain fields. The version control will only trigger if at least one other (non-ignored) field has been changed.
+
+```php
+	public function initialize(){
+		parent::initialize();
+		
+		$this->addBehavior('Revisions.Revisions', [
+			'ignore' => [
+				'bigBlob',  # only trigger if something 
+				'created',  # OTHER than these fields 
+				'modified', # was changed
+				],   
+		]);
+	}
+```
