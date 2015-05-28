@@ -14,7 +14,7 @@
         },
         {
             "name":         "isaac",
-            "role":         "Original Author"
+            "role":         "Author"
         }
     ],
     "autoload": {

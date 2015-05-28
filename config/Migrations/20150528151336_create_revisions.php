@@ -27,11 +27,11 @@ class CreateRevisions extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('before', 'text', [
+        $table->addColumn('before_edit', 'text', [
             'default' => null,
             'null' => false,
         ]);
-        $table->addColumn('after', 'text', [
+        $table->addColumn('after_edit', 'text', [
             'default' => null,
             'null' => false,
         ]);
