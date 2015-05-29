@@ -75,6 +75,13 @@ class RevisionsBehavior extends Behavior{
 		$this->Revisions->save($r);
 
 	}	
+	
+	public function getRevisions($id){
+		$this->Revisions = TableRegistry::get('Revisions.Revisions');
+		$revisions = $this->Revisions->find('all')
+				->where(['Revisions.modelPrimaryKey' => $id]);
+		return $revisions;
+	}
 
 
 }
