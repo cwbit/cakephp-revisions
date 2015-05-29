@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Revisions\Model\Behavior;
 

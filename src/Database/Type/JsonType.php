@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace Revisions\Database\Type;
 
 use Cake\Database\Driver;
