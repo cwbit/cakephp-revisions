@@ -1,6 +1,7 @@
 <?php
 namespace Revisions\Controller;
 
+use Cake\ORM\TableRegistry;
 use Revisions\Controller\AppController;
 
 /**
@@ -36,6 +37,18 @@ class RevisionsController extends AppController
         ]);
         $this->set('revision', $revision);
         $this->set('_serialize', ['revision']);
+
+        $model = TableRegistry::get($revision->model);
+
+        $before = $model->newEntity($revision->before_edit, ['accessibleFields'=>['*'=>true]]);
+        $before->clean();
+
+        $after = $model->patchEntity(clone $before, $revision->after_edit, ['accessibleFields'=>['*'=>true]]);
+
+        $diff = array_diff($after->jsonSerialize(), $before->jsonSerialize());
+
+        $this->set(compact('before', 'after', 'diff'));
+
     }
 
     // /**
