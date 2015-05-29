@@ -102,3 +102,18 @@ You can also explicitly tell the Plugin to ignore modifications to certain field
 		]);
 	}
 ```
+
+### Adding Revision Review
+
+The Plugin also comes with the ability to view all revisions and restore to any given point in time.
+
+To enable this functionality, add and customize the following line in any view
+
+```
+<?=$this->Element('Revisions.Revisions/index', [
+	'id' => $entity->id, 	# replace with actual entity variable
+	'model' => 'examples', # replace with actual model
+	//'limit' => 10,			# optional
+	]);?>
+
+```
