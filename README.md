@@ -1,16 +1,16 @@
 # cakephp-revisions
-=======================
+
 CakePHP Revisions plugin (CakeFest 2015)
 
 A Plugin for CakePHP 3.x that allows you to track Revisions to Tables (at the entity level) in your Application
 
 ## Requirements
-====
+
 
 * [CakePHP 3.x](http://cakephp.org)
 
 ## Installation
-====
+
 
 _[Using [Composer](http://getcomposer.org/)]_
 
@@ -57,6 +57,10 @@ If you are already using `Plugin::loadAll();`, then this is not necessary.
 ## Usage
 
 Add the Behavior to any Table you want to track versions of
+
+1. [Track any/all Revisions](#basic-implementation)
+2. [Explicity watch for changes to certain fields (whitelist)](#watched-implementation)
+3. [Ignore changes made to certain fields (blacklist)](#ignored-implementation)
 
 #### Basic Implementation
 The Basic Implementation will fire any time any field on the entity is modified.
@@ -109,11 +113,11 @@ The Plugin also comes with the ability to view all revisions and restore to any 
 
 To enable this functionality, add and customize the following line in any view
 
-```
-<?=$this->Element('Revisions.Revisions/index', [
-	'id' => $entity->id, 	# replace with actual entity variable
-	'model' => 'examples', # replace with actual model
-	//'limit' => 10,			# optional
+```php
+<?= $this->Element('Revisions.Revisions/index', [
+		'id' => $entity->id, 	# replace with actual entity variable
+		'model' => 'examples',	# replace with actual model
+		'limit' => 10,			# optional
 	]);?>
 
 ```
